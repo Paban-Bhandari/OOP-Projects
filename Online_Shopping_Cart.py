@@ -77,6 +77,23 @@ class MobileBanking(Payment):
         print(f"Paid Rs. {amount} successfully using MobileBanking")
 
 class Order:
+    def __init__(self, cart):
+        self.products = cart.products.copy()
+        self.total = cart.calculate_total()
+        self.status = "Pending"
+
+    def show_order(self):
+        print("\n--- ORDER DETAILS ---")
+        for product in self.products:
+            print(product.id, product.name, product.price)
+
+        print("Total:", self.total)
+        print("Status:", self.status)
+
+    def pay(self, payment_method):
+        payment_method.process_payment(self.total)
+        self.status = "Paid"
+        print("Order status updated to PAID")
     
 
 laptop = Product(1, "Laptop", 80000)
@@ -91,11 +108,11 @@ user.cart.add_product(keyboard)
 
 user.cart.remove_product(2)
 
-for product in user.cart.products:
-    print(product.id,product.name,product.price)
+order = Order(user.cart)
 
+order.show_order()
 
-total = user.cart.calculate_total()
-print(f"Total: {total}")
 payment = Esewa()
-payment.process_payment(total)
+order.pay(payment)
+
+order.show_order()
