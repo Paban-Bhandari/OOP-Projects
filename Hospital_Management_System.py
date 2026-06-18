@@ -174,4 +174,30 @@ class Hospital:
             print(f"Date : {appointment.date}")
             print(f"Time : {appointment.time}")
             print(f"Status : {appointment.status}")
-            print("-"*20)
+            print("-"*30)
+
+# ---------USAGE----------
+hospital = Hospital()
+doctor = Doctor(1,"Hari",35,"Cardiology")
+hospital.add_doctor(doctor)
+nurse = Nurse(1,"Aarya",23,"Ward A")
+hospital.add_nurse(nurse)
+patient = Patient(101,"Paban",21)
+hospital.add_patient(patient)
+
+peoples = [doctor,nurse,patient]
+for people in peoples:
+    people.display_info()
+
+appointment = hospital.book_appointment(doctor,patient,"Chest Pain","03-06-2004","10 AM")
+nurse.assist(appointment)
+appointment.complete()
+
+doctor.prescribe(patient,[ ("Paracetamol","500mg"),("Vitamin C","1 Tablet")])
+
+bill = hospital.issue_bill(patient,"Consultation",3000)
+bill.bill_pay()
+
+patient.show_record()
+
+hospital.show_all_appointments()
