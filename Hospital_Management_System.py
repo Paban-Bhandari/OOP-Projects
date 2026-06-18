@@ -71,27 +71,27 @@ class Patient(Person):
     def add_bill(self,bill):
         self.__bills.append(bill)
 class Appointment:
-    def __init__(self,doctor,patient,reason,date,time,status):
+    def __init__(self,doctor,patient,reason,date,time):
         self.doctor=doctor
         self.patient = patient
         self.reason=reason
         self.date=date
         self.time=time
-        self.status=status
+        self.status="Scheduled"
 
 class Prescription:
     def __init__(self,doctor,patient,medicines):
-        self.doctot = doctor
+        self.doctor = doctor
         self.patient = patient
-        self.medicine = []
+        self.medicines = medicines
         
 
 class Bill:
-    def __init__(self,patient,description,amount,status):
+    def __init__(self,patient,description,amount):
         self.patient=patient
         self.description=description
         self.__amount=amount
-        self.__status=status
+        self.__status="Unpaid"
 
     @property
     def amount(self):
@@ -101,3 +101,32 @@ class Bill:
     def status(self):
         return self.__status
     
+    def bill_pay(self):
+        self.__status="Paid"
+        print("Bill Paid Successfully !!")
+    
+class Hospital:
+    def __init__(self):
+        self.doctors=[]
+        self.nurses=[]
+        self.patients=[]
+        self.appointments=[]
+
+    def add_doctor(self,doctor):
+        self.doctors.append(doctor)
+
+    def add_nurse(self,nurse):
+        self.nurses.append(nurse)
+
+    def add_patient(self,patient):
+        self.patients.append(patient)
+
+    def book_appointment(self,appointment):
+        self.appointments.append(appointment)
+
+    def issue_bill(self):
+        
+
+    def show_all_appointments(self):
+        for appointment in self.appointments:
+            print(appointment)
